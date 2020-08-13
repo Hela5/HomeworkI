@@ -1,36 +1,49 @@
 package com.JavaApp;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class App {
     public static void main( String[] args ) {
     }
 
     public static Integer response;
-    public static List<String> textLines = new ArrayList<>();
+    MarylandInfo[] payments;
 
+    //retrieve data from MD API
     public void sendRequestMD()  throws IOException {
         URL url = new URL("https://opendata.maryland.gov/resource/3ycv-rxy9.json");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         response = con.getResponseCode();
 
         InputStream input = con.getInputStream();
-        String newLine = System.getProperty("line.separator");
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder result = new StringBuilder();
-        boolean flag = false;
-        for (String line; (line = reader.readLine()) != null; ) {
-            result.append(flag? newLine: "").append(line);
-            flag = true;
+
+        String line;
+        while((line = reader.readLine()) != null) {
+            result.append(line);
         }
-        result.toString();
+        String newLines = result.toString();
+        Gson gson = new Gson();
+        try {
+          Type payments = new TypeToken<ArrayList<MarylandInfo>>(){}.getType();
+          ArrayList<MarylandInfo> mpay = gson.fromJson(newLines, payments);
+            //payments = gson.fromJson(newLines, MarylandInfo[].class);
+        } catch (IllegalStateException | JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+        System.out.print(payments);
     }
+
+    public
 
 
 }
