@@ -1,29 +1,45 @@
 package com.JavaApp;
 
+import com.google.api.client.util.Key;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDateTime;
 
 public class MarylandInfo {
+
     @SerializedName("fiscal_year")
-    private String fiscalYear;
+    @Key("fiscal_year")
+    private Integer fiscalYear;
+
+    @Key("agency_name")
     @SerializedName("agency_name")
     private String agencyName;
+
+    @Key("vendor_name")
     @SerializedName("vendor_name")
     private String vendorName;
+
+    @Key("vendor_zip")
     @SerializedName("vendor_zip")
     private String vendorZip;
+
+    @Key("amount")
     @SerializedName("amount")
     private Double amount;
+
+    @Key("fiscal_period")
     @SerializedName("fiscal_period")
     private Integer fiscalPeriod;
+
+    @Key("date")
     @SerializedName("date")
     private LocalDateTime date;
 
 
-    public String toString() {
+
+/*    public String toString() {
         return "Payments [fiscalYear "  + fiscalYear + ", agencyName " + agencyName+", vendorName " +  vendorName + ", vendorZip " + vendorZip + ", amount " + amount + ", fiscalPeriod " +  fiscalPeriod + ", date " +date ;
-    }
+    }*/
 
 /*    public MarylandInfo(String fiscalYear, String agencyName, String vendorName, String vendorZip, Float amount, Integer fiscalPeriod, LocalDateTime date){
         this.fiscalYear = fiscalYear;
@@ -34,12 +50,11 @@ public class MarylandInfo {
         this.fiscalPeriod = fiscalPeriod;
         this.date = date;
     }*/
-/*
-    public int getFiscalYear() {
+    public Integer getFiscalYear() {
         return fiscalYear;
     }
 
-    public void setFiscalYear(int fiscalYear) {
+    public void setFiscalYear(Integer fiscalYear) {
         this.fiscalYear = fiscalYear;
     }
 
@@ -67,19 +82,19 @@ public class MarylandInfo {
         this.vendorZip = vendorZip;
     }
 
-    public int getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public int getFiscalPeriod() {
+    public Integer getFiscalPeriod() {
         return fiscalPeriod;
     }
 
-    public void setFiscalPeriod(int fiscalPeriod) {
+    public void setFiscalPeriod(Integer fiscalPeriod) {
         this.fiscalPeriod = fiscalPeriod;
     }
 
@@ -89,5 +104,5 @@ public class MarylandInfo {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }*/
+    }
 }

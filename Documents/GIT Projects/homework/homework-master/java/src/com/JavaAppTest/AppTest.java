@@ -23,6 +23,7 @@ public class AppTest
     @Test
     public void responseCodeForMDSuccessful() throws IOException
     {
-    app.sendRequestMD();
+    app.sendRequestMDwithGSON();
+        //app.sendRequestMDwithHTTP();
     }
 }
