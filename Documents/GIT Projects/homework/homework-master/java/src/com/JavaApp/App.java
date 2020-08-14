@@ -38,7 +38,7 @@ public class App {
         HttpRequest hrequest;
         HttpGet httpGet = new HttpGet();
         URL url = new URL("https://opendata.maryland.gov/resource/3ycv-rxy9.json");
-        HttpResponse response = httpClient.execute(httpGet(url));
+        //HttpResponse response = httpClient.execute(httpGet(url));
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         MDPayments mdpayments = hresponse.parseAs(MDPayments.class);
         if(mdpayments.getPayments().isEmpty()){
@@ -63,38 +63,55 @@ public class App {
         StringBuilder result = new StringBuilder();
 
         String line;
-        while((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             result.append(line);
         }
         String newLines = result.toString();
-        //attempt at converting to JSON Object beforehand
-        HttpHandler handle;
-        handle.handle();
 
+        //having issues with converting from JSONObject to JSONArray to then iterate through and store
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(newLines);
-        JSONArray pments = jsonObject. getAsJsonArray();
+        //jsonObject.put(newLines);
+        JSONArray pments = new JSONArray();
+        //pments = jsonObject. getAsJsonArray();
 
-        for (int i = 0; i < pments.length(); i++) {
-            JSONObject c = pments.getJSONObject(i);
+        //for (int i = 0; i < pments.length(); i++) {
+            //JSONObject p = pments. getJSONObject(i);
+            //where I want to assign each item into classes to then retrieve zip code for next step
 
-        //GSON
 
-        Gson gson = new Gson();
-        try {
-        // try to convert into arraylist for storing into class
-          Type payments = new TypeToken<ArrayList<MarylandInfo>>(){}.getType();
-          ArrayList<MarylandInfo> mpay = gson.fromJson(newLines, payments);
+            //GSON
 
-          //another way to convert into an array - still has error with String
-          //payments = gson.fromJson(newLines, MarylandInfo[].class);
-        } catch (IllegalStateException | JsonSyntaxException e) {
-            e.printStackTrace();
+            Gson gson = new Gson();
+            try {
+                // try to convert into arraylist for storing into class
+                Type payments = new TypeToken<ArrayList<MarylandInfo>>() {
+                }.getType();
+                ArrayList<MarylandInfo> mpay = gson.fromJson(newLines, payments);
+
+                //another way to convert into an array - still has error with String
+                //payments = gson.fromJson(newLines, MarylandInfo[].class);
+            } catch (IllegalStateException | JsonSyntaxException e) {
+                e.printStackTrace();
+            }
+            //always prints as null
+            System.out.print(payments);
         }
-        //always prints as null
-        System.out.print(payments);
-    }
 
+
+    //pull zip and get Lat/Long
+    public void callOSMforLatLong(){
+
+     }
+
+     //create Geohash
+     public void transformLatLongIntoGeoHash(){
+
+     }
+
+     //final stage to collect all data and transform to parquet file format
+    public void transformIntoParquetFile(){
+
+    }
 
 
 }
